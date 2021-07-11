@@ -1,2 +1,2 @@
-const [name = "World"] = Deno.args
-console.log(`Hello ${name}!`)
+const [name = "World"] = Deno.args;
+console.log(`Hello ${name}!`);

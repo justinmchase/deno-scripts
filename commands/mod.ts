@@ -1,2 +1,2 @@
-export * from './install.ts'
-export * from './run.ts'
+export * from "./install.ts";
+export * from "./run.ts";
