@@ -4,7 +4,9 @@
     "version": {
       "url": "https://deno.land/x/version/index.ts",
       "permissions": [
-        "allow-read"
+        "allow-read",
+        "allow-write",
+        "allow-run"
       ],
       "args": []
     }

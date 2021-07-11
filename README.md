@@ -22,7 +22,9 @@ Create a scripts.json file in your root directory
     "version": {
       "url": "https://deno.land/x/version/index.ts",
       "permissions": [
-        "allow-read"
+        "allow-read",
+        "allow-write",
+        "allow-run"
       ],
       "args": []
     }
