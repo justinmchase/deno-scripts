@@ -30,7 +30,8 @@ async function installCommand(opts: IInstallOptions) {
 
   const cwd = await Deno.realPath(Deno.cwd());
   const scriptsInstallDir = path.join(cwd, ".deno");
-  await fs.ensureDir(scriptsInstallDir);
+  const scriptsBinDir = path.join(scriptsInstallDir, "bin");
+  await fs.ensureDir(scriptsBinDir);
 
   for (const [name, script] of Object.entries(scripts)) {
     const parsed = parseScript(script);
@@ -67,6 +68,17 @@ async function installCommand(opts: IInstallOptions) {
     } else {
       ink.terminal.log(
         `[<green>success</green>] script <cyan>${name}</cyan> installed successfully`,
+      );
+    }
+  }
+
+  // Delete scripts that no longer exist in the scripts.json file
+  for await (const file of Deno.readDir(scriptsBinDir)) {
+    if (file.isFile && !scripts[file.name]) {
+      const removePath = path.join(scriptsBinDir, file.name)
+      await Deno.remove(removePath)
+      ink.terminal.log(
+        `[<yellow>removed</yellow>] script <cyan>${file.name}</cyan> was uninstalled`,
       );
     }
   }
