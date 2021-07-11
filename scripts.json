@@ -1,13 +1,12 @@
 {
   "scripts": {
-    "hello": "./examples/hello.ts",
-    "file_server": {
-      "url": "https://deno.land/std@0.100.0/http/file_server.ts",
+    "hello": "./scripts/hello.ts",
+    "version": {
+      "url": "https://deno.land/x/version/index.ts",
       "permissions": [
-        "allow-read",
-        "allow-net"
+        "allow-read"
       ],
-      "args": ["-p", "8081"]
+      "args": []
     }
   }
 }

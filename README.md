@@ -18,7 +18,14 @@ Create a scripts.json file in your root directory
 ```json
 {
   "scripts": {
-    "hello": "https://deno.land/x/scripts/examples/hello.ts"
+    "hello": "https://deno.land/x/scripts/examples/hello.ts",
+    "version": {
+      "url": "https://deno.land/x/version/index.ts",
+      "permissions": [
+        "allow-read"
+      ],
+      "args": []
+    }
   }
 }
 ```
@@ -33,6 +40,7 @@ Run a script
 
 ```sh
 script run hello
+script run version init 0.1.0
 ```
 
 ## Local Development
