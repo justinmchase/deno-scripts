@@ -75,8 +75,8 @@ async function installCommand(opts: IInstallOptions) {
   // Delete scripts that no longer exist in the scripts.json file
   for await (const file of Deno.readDir(scriptsBinDir)) {
     if (file.isFile && !scripts[file.name]) {
-      const removePath = path.join(scriptsBinDir, file.name)
-      await Deno.remove(removePath)
+      const removePath = path.join(scriptsBinDir, file.name);
+      await Deno.remove(removePath);
       ink.terminal.log(
         `[<yellow>removed</yellow>] script <cyan>${file.name}</cyan> was uninstalled`,
       );
