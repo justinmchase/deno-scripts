@@ -16,6 +16,12 @@ deno install \
 
 Create a scripts.json file in your root directory
 
+```sh
+script init
+```
+
+Add some scripts to the file
+
 ```json
 {
   "scripts": {
