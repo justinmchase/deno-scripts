@@ -45,16 +45,3 @@ Run a script
 script run hello
 script run version init 0.1.0
 ```
-
-## Local Development
-
-```sh
-deno run --unstable -A --watch install.ts install
-deno run --unstable -A --watch install.ts run hello
-```
-
-Increment version
-
-```sh
-deno run -A https://deno.land/x/version/index.ts patch
-```

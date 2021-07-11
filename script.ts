@@ -1,10 +1,11 @@
 import { Command } from "./deps.ts";
-import { install, run } from "./commands/mod.ts";
+import { init, install, run } from "./commands/mod.ts";
 
 const cmd = new Command()
   .name("script")
   .version("0.1.0")
   .description("Command line framework for Deno")
+  .command("init", init)
   .command("install", install)
   .command("run", run);
 

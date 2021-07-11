@@ -41,7 +41,7 @@ async function installCommand(opts: IInstallOptions) {
     const scriptExists = await fs.exists(scriptInstallFile);
     if (!force && scriptExists) {
       ink.terminal.log(
-        `[<yellow>skip</yellow>] script <cyan>${name}</cyan> already installed`,
+        `[<yellow>skipped</yellow>] script <cyan>${name}</cyan> already installed`,
       );
       continue;
     }
