@@ -1,6 +1,14 @@
 {
   "scripts": {
     "hello": "./scripts/hello.ts",
+    "goodbye": {
+      "url": "./scripts/hello.ts",
+      "args": ["Goodbye"]
+    },
+    "greet": [
+      "hello",
+      "goodbye"
+    ],
     "version": {
       "url": "https://deno.land/x/version/index.ts",
       "permissions": [

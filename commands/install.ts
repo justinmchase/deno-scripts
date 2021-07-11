@@ -1,4 +1,6 @@
 import { Command, fs, ink, path } from "../deps.ts";
+import { getScripts } from "./util.ts";
+import { IScript, Script } from "./IScript.ts";
 
 interface IInstallOptions {
   force?: boolean;
@@ -10,33 +12,11 @@ export const install = new Command()
   .description("Installs all scripts locally.")
   .action(async (opts) => await installCommand(opts));
 
-interface IScript {
-  url: string;
-  permissions?: string[];
-  args?: string[];
-}
-
-async function getScripts(): Promise<Record<string, IScript> | undefined> {
-  try {
-    const decoder = new TextDecoder("utf-8");
-    const scriptsContent = await Deno.readFile("scripts.json");
-    const scriptsJson = decoder.decode(scriptsContent);
-    const { scripts } = JSON.parse(scriptsJson.toString());
-    return scripts;
-  } catch (err) {
-    if (err instanceof Deno.errors.NotFound) {
-      console.warn("scripts.json was not found");
-      return undefined;
-    } else {
-      console.log(err.constructor.name, err.message);
-      return undefined;
-    }
-  }
-}
-
-function parseScript(script: IScript | string): IScript {
+function parseScript(script: Script): IScript | undefined {
   if (typeof script === "string") {
     return { url: script };
+  } else if (Array.isArray(script)) {
+    return undefined;
   } else {
     return script;
   }
@@ -53,7 +33,9 @@ async function installCommand(opts: IInstallOptions) {
   await fs.ensureDir(scriptsInstallDir);
 
   for (const [name, script] of Object.entries(scripts)) {
-    const { url, permissions = [], args = [] } = parseScript(script);
+    const parsed = parseScript(script);
+    if (!parsed) continue;
+    const { url, permissions = [], args = [] } = parsed;
     const scriptInstallFile = path.join(scriptsInstallDir, "bin", name);
     const scriptExists = await fs.exists(scriptInstallFile);
     if (!force && scriptExists) {
