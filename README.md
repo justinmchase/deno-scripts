@@ -7,7 +7,7 @@ Automated installation and execution of locally scoped scripts
 ```sh
 deno install \
   --unstable \
-  --allow-read --allow-env --allow-run \
+  --allow-read --allow-env --allow-run --allow-write \
   -n script \
   https://deno.land/x/scripts/script.ts
 ```
