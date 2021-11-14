@@ -9,18 +9,25 @@ interface IArgs {
 
 export const run = new Command()
   .stopEarly()
-  .option("-d, --directory <directory:string>", "The working directory to use when running the script.")
+  .option(
+    "-d, --directory <directory:string>",
+    "The working directory to use when running the script.",
+  )
   .arguments("<script:string> [...args]")
   .description("Runs a script")
   .action(async (opts, script, args) => {
     await runCommand({ name: script, opts, args });
   });
 
-async function runScript(name: string, opts: Record<string, unknown>, args: string[]): Promise<number> {
+async function runScript(
+  name: string,
+  opts: Record<string, unknown>,
+  args: string[],
+): Promise<number> {
   const cwd = await Deno.realPath(Deno.cwd());
   const scriptsInstallDir = path.join(cwd, ".deno");
   const scriptsBinDir = path.join(scriptsInstallDir, "bin");
-  const runDir = opts.directory ? opts.directory as string : cwd
+  const runDir = opts.directory ? opts.directory as string : cwd;
   const runProcess = Deno.run({
     cwd: runDir,
     env: {
@@ -40,7 +47,10 @@ async function runScript(name: string, opts: Record<string, unknown>, args: stri
   return code;
 }
 
-async function runScripts(scripts: string[], opts: Record<string, unknown>): Promise<number> {
+async function runScripts(
+  scripts: string[],
+  opts: Record<string, unknown>,
+): Promise<number> {
   for (const script of scripts) {
     const code = await runScript(script, opts, []);
     if (code !== 0) return code;
